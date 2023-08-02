@@ -7,7 +7,7 @@ const app = express()
 
 dotenv.config()
 
-mongoose.connect("mongodb+srv://Olexander:<Pasternak16>@secserv.rkiaq87.mongodb.net/?retryWrites=true&w=majority",
+mongoose.connect(process.env.MONGO_URL,
 { useNewUrlParser: true, useUnifiedTopology: true })
 
 
