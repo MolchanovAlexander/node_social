@@ -2,10 +2,10 @@ const router = require("express").Router()
 const User = require("../models/user")
 
 //REGISTER
-router.post("/register", async (req, res) => {
+router.get("/register", async (req, res) => {
     const user = await new User({
         username:"guf",
-        email:"guf@gufmail.com",
+        email:"guf228@gufmail.com",
         password:"1111"
     })
    await user.save()
