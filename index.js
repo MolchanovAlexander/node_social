@@ -6,6 +6,7 @@ const morgan= require("morgan")
 const app = express()
 const userRoute = require("./routes/users")
 const authRoute = require("./routes/auth")
+const postRoute = require("./routes/posts")
 
 dotenv.config()
 
@@ -20,12 +21,7 @@ app.use(morgan("common"))
 
 app.use("/api/users",userRoute)
 app.use("/api/auth",authRoute)
-// app.get("/", (req,res)=>{
-//     res.send("<div style=background:green;color:white;height:300px;width:340px;>welcome to homepage</div>")
-// })
-// app.get("/users", (req,res)=>{
-//     res.send("<div style=background:red;height:300px;width:340px>welcome to user page</div>")
-// })
+app.use("/api/posts",postRoute)
 
 
 app.listen(8800,() => {
