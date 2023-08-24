@@ -22,24 +22,31 @@ router.post("/register", async (req, res) => {
         const user = await newUser.save()
         res.status(200).json(user)
     } catch (err) {
-        res.send(500).json(err);
+        res.sendStatus(500).json(err);
     }
-    //    
-    //    res.send("<div style=background:lightblue;height:300px;width:340px;>AUTH ok</div>")
+
 })
 
-//LOGIN
+//LOGINsendStatus(500)
 router.post("/login", async (req, res) => {
+    
     try {
+        console.log(" try");
         const user = await User.findOne({ email: req.body.email })
         !user && res.status(404).json("user not found")
+        if (user !== null && user !== undefined) {
+            const validPassword = await bcrypt.compare(req.body.password, user.password)
 
-        const validPassword = await bcrypt.compare(req.body.password, user.password )
-        !validPassword && res.status(400).json("Password not valid ")
+            !validPassword && res.status(400).json("Password not valid ")
+            
+        }
+
 
         res.status(200).json(user)
     } catch (err) {
-       res.send(500).json(err);
+        res.json(err);
+        console.log(err.code);
+
     }
 
 })
