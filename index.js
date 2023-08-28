@@ -18,23 +18,25 @@ mongoose.connect(process.env.MONGO_URL,
 
 app.use("/uploads", express.static(path.join(__dirname, "/public/uploads/")))
 
-//middleware req.body.name
+//middleware file.originalname - to interact with Postman
 app.use(express.json())
 app.use(helmet())
 app.use(morgan("common"))
-
+    //'C:/MolchanovCode/node_social/public/uploads'
+    ///home/ol/MolchanovCode/safac_social/node_social/public/uploads
 const storage = multer.diskStorage({
+
     destination: (req, file, cb) => {
-        cb(null, 'C:/MolchanovCode/node_social/public/uploads')
+        cb(null, '/home/ol/MolchanovCode/safac_social/node_social/public/uploads')
     },
     filename: (req, file, cb) => {
-        cb(null, file.originalname)
+        cb(null, req.body.name)
     }
 })
 
 const upload = multer({ storage })
 app.post("/api/upload", upload.single("file"), (req, res) => {
-    
+       
     try {
         return res.status(200).json("File uploaded")
     } catch (err) {
