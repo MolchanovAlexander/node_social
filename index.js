@@ -8,12 +8,15 @@ const userRoute = require("./routes/users")
 const authRoute = require("./routes/auth")
 const postRoute = require("./routes/posts")
 const multer = require("multer")
+const path = require("path")
 
 dotenv.config()
 
 //process.env.MONGO_URL
 mongoose.connect(process.env.MONGO_URL,
     { useNewUrlParser: true, useUnifiedTopology: true }).then(() => console.log('Connected')).catch((err) => console.log(err))
+
+app.use("/uploads", express.static(path.join(__dirname, "/public/uploads/")))
 
 //middleware req.body.name
 app.use(express.json())
